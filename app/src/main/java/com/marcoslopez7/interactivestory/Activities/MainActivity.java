@@ -1,4 +1,4 @@
-package com.marcoslopez7.interactivestory;
+package com.marcoslopez7.interactivestory.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.marcoslopez7.interactivestory.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,13 +27,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = nameText.getText().toString();
-                startStory();
+
+                if(name != null && !name.isEmpty() && !name.equals("null")) {
+                    startStory(name);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Por favor inserte un nombre",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void startStory(){
+    private void startStory(String name){
         Intent intent = new Intent(this, StoryActivity.class);
+        intent.putExtra(getString(R.string.key_name), name);
         startActivity(intent);
     }
 }
